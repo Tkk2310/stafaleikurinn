@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Stafaleikurinn</string>
+
+    <string name="hvadaMyndAStafinn">Hver á stafinn?</string>
+    <string name="hvadaStafAmyndin">Hvaða staf á þessi?</string>
+    <string name="Stafrofid">Stafrófið</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_leiksvaedi">Stafaleikurinn</string>
+
+    <string name="hello_world">Hello world!</string>
+</resources>
