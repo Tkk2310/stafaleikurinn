@@ -7,5 +7,18 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_leiksvaedi">Stafaleikurinn</string>
 
-    <string name="hello_world">Hello world!</string>
+
+
+    <string-array name="Stafrof">
+        <item>a</item>
+        <item>aa</item>
+        <item>b</item>
+        <item>d</item>
+        <item>dd</item>
+        <item>e</item>
+        <item>ee</item>
+        <item>f</item>
+        <item>g</item>
+        <item>h</item>
+    </string-array>
 </resources>

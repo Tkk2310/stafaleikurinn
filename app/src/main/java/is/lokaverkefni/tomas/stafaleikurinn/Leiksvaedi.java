@@ -1,11 +1,17 @@
 package is.lokaverkefni.tomas.stafaleikurinn;
 
+import android.content.res.AssetFileDescriptor;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+
+import java.io.IOException;
 
 import is.lokaverkefni.tomas.virkni.Hlutur;
 import is.lokaverkefni.tomas.virkni.Leikurinn;
@@ -13,49 +19,57 @@ import is.lokaverkefni.tomas.virkni.Leikurinn;
 
 public class Leiksvaedi extends ActionBarActivity {
 
-    public Hlutur[] stafir = new Hlutur[5];
-    public Hlutur[] hlutir = new Hlutur[2];
     public Leikurinn leikur;
 
-    String stafrof = "abcde";
     Hlutur[] svor;
+
+    MediaPlayer mp;
+
+    boolean stafaleikur;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leiksvaedi);
-        fyllaStafi();
-
-        leikur = new Leikurinn(stafir,hlutir);
+        stafaleikur = getIntent().getExtras().getBoolean("stafaleikur");
+        mp = new MediaPlayer();
+        leikur = new Leikurinn(this);
         nyLota();
     }
 
 
     public void nyLota()
     {
-        leikur.startRound(false);
+        leikur.startRound(stafaleikur);
 
         Hlutur current = leikur.getNuveradni();
 
         ImageView temp = (ImageView) findViewById(R.id.adalMynd);
         temp.setImageDrawable(current.getMyndin());
 
-        svor = leikur.faSvor(false);
+        svor = leikur.faSvor(stafaleikur);
 
         temp = (ImageView) findViewById(R.id.takki1);
         temp.setImageDrawable(svor[0].getMyndin());
+        temp.setEnabled(true);
 
         temp = (ImageView) findViewById(R.id.takki1);
         temp.setImageDrawable(svor[0].getMyndin());
+        temp.setEnabled(true);
 
         temp = (ImageView) findViewById(R.id.takki2);
         temp.setImageDrawable(svor[1].getMyndin());
+        temp.setEnabled(true);
 
         temp = (ImageView) findViewById(R.id.takki3);
         temp.setImageDrawable(svor[2].getMyndin());
+        temp.setEnabled(true);
 
         temp = (ImageView) findViewById(R.id.takki4);
         temp.setImageDrawable(svor[3].getMyndin());
+        temp.setEnabled(true);
+
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -66,68 +80,78 @@ public class Leiksvaedi extends ActionBarActivity {
 
     public void takki1(View view)
     {
+        try {
+            mp.reset();
+            AssetFileDescriptor afd;
+            afd = getAssets().openFd("test.mp3");
+            mp.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
+            mp.prepare();
+            mp.start();
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         if (leikur.rightGuess(svor[0]))
+        {
             nyLota();
+
+
+        }
+        else
+        {
+            ImageView temp;
+            temp = (ImageView) findViewById(view.getId());
+            temp.setImageDrawable(getResources().getDrawable(R.drawable.wronganswer));
+            view.setEnabled(false);
+        }
     }
 
     public void takki2(View view)
     {
         if (leikur.rightGuess(svor[1]))
+        {
             nyLota();
+        }
+        else
+        {
+            ImageView temp;
+            temp = (ImageView) findViewById(view.getId());
+            temp.setImageDrawable(getResources().getDrawable(R.drawable.wronganswer));
+            view.setEnabled(false);
+        }
     }
 
     public void takki3(View view)
     {
         if (leikur.rightGuess(svor[2]))
+        {
             nyLota();
+        }
+        else
+        {
+            ImageView temp;
+            temp = (ImageView) findViewById(view.getId());
+            temp.setImageDrawable(getResources().getDrawable(R.drawable.wronganswer));
+            view.setEnabled(false);
+        }
     }
 
     public void takki4(View view)
     {
         if (leikur.rightGuess(svor[3]))
-            nyLota();
-    }
-
-    public void fyllaStafi()
-    {
-        /*
-        for (int i = 0; i<stafrof.length(); i++)
         {
-            stafir[i] = new Hlutur():
-            stafir[i].setStafurinn(stafrof.charAt(i));
-            String bla = "stafur_" + stafrof.charAt(i);
-            stafir[i].setMyndin(getResources().getDrawable(R.drawable.bla));
+            nyLota();
         }
-        */
-        stafir[0] = new Hlutur();
-        stafir[0].setStafurinn(stafrof.charAt(0));
-        stafir[0].setMyndin(getResources().getDrawable(R.drawable.stafur_a));
-
-        stafir[1] = new Hlutur();
-        stafir[1].setStafurinn(stafrof.charAt(1));
-        stafir[1].setMyndin(getResources().getDrawable(R.drawable.stafur_b));
-
-        stafir[2] = new Hlutur();
-        stafir[2].setStafurinn(stafrof.charAt(2));
-        stafir[2].setMyndin(getResources().getDrawable(R.drawable.stafur_c));
-
-        stafir[3] = new Hlutur();
-        stafir[3].setStafurinn(stafrof.charAt(3));
-        stafir[3].setMyndin(getResources().getDrawable(R.drawable.stafur_d));
-
-        stafir[4] = new Hlutur();
-        stafir[4].setStafurinn(stafrof.charAt(4));
-        stafir[4].setMyndin(getResources().getDrawable(R.drawable.stafur_e));
-
-        hlutir[0] = new Hlutur();
-        hlutir[0].setStafurinn('a');
-        hlutir[0].setMyndin(getResources().getDrawable(R.drawable.hlutur_api));
-
-        hlutir[1] = new Hlutur();
-        hlutir[1].setStafurinn('b');
-        hlutir[1].setMyndin(getResources().getDrawable(R.drawable.hlutur_batur));
-
+        else
+        {
+            ImageView temp;
+            temp = (ImageView) findViewById(view.getId());
+            temp.setImageDrawable(getResources().getDrawable(R.drawable.wronganswer));
+            view.setEnabled(false);
+        }
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
