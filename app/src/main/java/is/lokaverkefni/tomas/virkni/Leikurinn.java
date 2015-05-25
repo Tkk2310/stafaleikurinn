@@ -117,6 +117,10 @@ public class Leikurinn {
         }
     }
 
+    public ArrayList<Hlutur> getStafir(){
+        return stafirnir;
+    }
+
     public Boolean rightGuess(Hlutur gisk)
     {
         return hluturIGangi.getStafurinn() == gisk.getStafurinn();

@@ -19,7 +19,7 @@ import is.lokaverkefni.tomas.virkni.Leikurinn;
 
 public class Leiksvaedi extends ActionBarActivity {
 
-    public Leikurinn leikur;
+    Leikurinn leikur;
 
     Hlutur[] svor;
 

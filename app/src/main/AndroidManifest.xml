@@ -3,10 +3,10 @@
     package="is.lokaverkefni.tomas.stafaleikurinn" >
 
     <application
-        android:largeHeap="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:theme="@style/AppTheme" >
         <activity
             android:name=".Opnunarskjar"
@@ -20,6 +20,10 @@
         <activity
             android:name=".Leiksvaedi"
             android:label="@string/title_activity_leiksvaedi" >
+        </activity>
+        <activity
+            android:name=".stafrof"
+            android:label="@string/title_activity_stafrof" >
         </activity>
     </application>
 

@@ -43,20 +43,22 @@ public class Opnunarskjar extends ActionBarActivity {
 
     public void hvadaStaf(View view)
     {
-        Intent test = new Intent(this,Leiksvaedi.class);
-        test.putExtra("stafaleikur",false);
-        startActivity(test);
+        Intent I = new Intent(this,Leiksvaedi.class);
+        I.putExtra("stafaleikur",false);
+        startActivity(I);
     }
 
     public void hvadaMynd(View view)
     {
-        Intent test = new Intent(this,Leiksvaedi.class);
-        test.putExtra("stafaleikur",true);
-        startActivity(test);
+        Intent I = new Intent(this,Leiksvaedi.class);
+        I.putExtra("stafaleikur",true);
+        startActivity(I);
     }
 
     public void stafrofid(View view)
     {
+        Intent I = new Intent(this, stafrof.class);
+        startActivity(I);
 
     }
 }
